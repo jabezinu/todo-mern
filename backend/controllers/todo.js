@@ -1,6 +1,6 @@
-const Todo = require('../modals/todo');
+import Todo from '../modals/todo.js';
 
-exports.getTodos = async (req, res) => {
+export const getTodos = async (req, res) => {
   try {
     const todos = await Todo.find();
     res.json(todos);
@@ -9,7 +9,7 @@ exports.getTodos = async (req, res) => {
   }
 };
 
-exports.createTodo = async (req, res) => {
+export const createTodo = async (req, res) => {
   const todo = new Todo({
     title: req.body.title,
   });
@@ -21,7 +21,7 @@ exports.createTodo = async (req, res) => {
   }
 };
 
-exports.updateTodo = async (req, res) => {
+export const updateTodo = async (req, res) => {
   try {
     const updatedTodo = await Todo.findByIdAndUpdate(
       req.params.id,
@@ -35,7 +35,7 @@ exports.updateTodo = async (req, res) => {
   }
 };
 
-exports.deleteTodo = async (req, res) => {
+export const deleteTodo = async (req, res) => {
   try {
     const todo = await Todo.findByIdAndDelete(req.params.id);
     if (!todo) return res.status(404).json({ message: 'Todo not found' });

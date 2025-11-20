@@ -1,11 +1,11 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const todoRoutes = require('./routes/todo');
+import 'dotenv/config';
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import todoRoutes from './routes/todo.js';
+import serverless from 'serverless-http';
 
 const app = express();
-const PORT = process.env.PORT || 5005;
 
 // Middleware
 app.use(cors());
@@ -19,6 +19,5 @@ mongoose.connect(process.env.MONGO_URI)
 // Routes
 app.use('/api/todos', todoRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Export the serverless wrapped app
+export default serverless(app);
